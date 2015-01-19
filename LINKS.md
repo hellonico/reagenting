@@ -1,5 +1,7 @@
 ## Documents
 
+* https://github.com/juxt/bidi
+* https://github.com/yogthos/reagent-secretary-example
 * https://github.com/enterlab/rente
 * http://getbootstrap.com/components/
 * http://www.w3schools.com/bootstrap/bootstrap_ref_css_tables.asp
