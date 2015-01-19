@@ -101,52 +101,61 @@
    [clock]
    [color-input]])
 
-(.makeChart js/AmCharts "chartdiv" (clj->js {
-  :type "serial"
-  :theme "none"
-  :dataProvider [
-    {:country "China" :visits 2808} 
-    {:country "USA" :visits 2300}
-    {:country "France" :visits 2500}
-   ]
-    :valueAxes [{
+(defonce chart-data (reagent/atom [
+     {:country "China" :visits 2808} 
+     {:country "USA" :visits 2300}
+     {:country "France" :visits 2500}
+     {:country "Japan" :visits 3000}
+     ]
+  ))
+
+(defn amcharts-example[]
+  (fn[]
+    (.makeChart js/AmCharts "chartdiv" (clj->js {
+     :type "serial"
+     :theme "none"
+     :dataProvider @chart-data
+     :valueAxes [{
         :gridColor "#FFFFFF"
         :gridAlpha 0.3
         :dashLength 0
-    }]
-    :gridAboveGraphs true
-    :startDuration 1
-    :graphs [{
+     }]
+     :gridAboveGraphs true
+     :startDuration 1
+     :graphs [{
         :balloonText "[[category]]: <b>[[value]]</b>"
         :fillAlphas 0.8
         :lineAlpha 0.2
         :type :column
         :valueField :visits
-    }]
-    :chartCursor {
+     }]
+     :chartCursor {
         :categoryBalloonEnabled false
         :cursorAlpha 0
         :zoomable true
-    }
-    :categoryField :country
-    :categoryAxis {
+     }
+     :categoryField :country
+     :categoryAxis {
         :gridPosition "start"
         :gridAlpha 0
         :tickPosition "start"
         :tickLength 20
-    }
-    :exportConfig {
+     }
+     :exportConfig {
      :menuTop 0
      :menuItems [{
       :icon "/lib/3/images/export.png"
       :format 'png'   
       }] 
     }}))
-
-(defn amcharts-example[]
-  (fn[]
-  [:div "hello amcharts"]
-  ))
+      [:div
+        [:div#chartdiv "hello amcharts"]
+        [:button.btn.btn-warning 
+        {:type "button"
+         :on-click #(swap! chart-data conj {:country (str "Country_x") :visits (+ 2000 (rand 1000))})}
+         "Add data"
+         ]]
+    ))
 
 
 (defn ^:export main []
