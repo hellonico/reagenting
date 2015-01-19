@@ -36,8 +36,8 @@
 (defn timer-component [data]
     (fn []
       (js/setTimeout #(swap! data inc) 1000)
-      [:div
-       "Seconds Elapsed since...: " @data]))
+      [:div.container
+      [:p.navbar-text "Seconds Elapsed since...: " @data]]))
 (defn timer-component2 []
   (let [seconds-elapsed (reagent/atom 0)]     ;; setup, and local state
     (fn []        ;; inner, render function is returned
@@ -45,12 +45,14 @@
       [:div "Seconds Elapsed: " @seconds-elapsed])))
 
 (defn some-component []
-  [:div
+  [:div.row
+   [:div.col-sm-3]
+   [:div.col-sm-9
    [:h3 "I am some component!"]
    [:p.someclass 
     "I have " [:strong "bold"]
     [:span {:style {:color "red"}} " and red"]
-    " text."]])
+    " text."]]])
 
 (defn counting-component []
   (let [click-count (reagent/atom 0)]
@@ -58,8 +60,8 @@
     [:div
     "The atom " [:code "click-count"] " has value: "
     @click-count ". "
-    [:input {:type "button" :value "Click me!"
-            :on-click #(swap! click-count inc)}]])))
+    [:button.btn.btn-danger {:type "button"
+            :on-click #(swap! click-count inc)} "Click me!"]])))
 
 (defn atom-input [value]
   [:input {:type "text"
@@ -99,9 +101,59 @@
    [clock]
    [color-input]])
 
+(.makeChart js/AmCharts "chartdiv" (clj->js {
+  :type "serial"
+  :theme "none"
+  :dataProvider [
+    {:country "China" :visits 2808} 
+    {:country "USA" :visits 2300}
+    {:country "France" :visits 2500}
+   ]
+    :valueAxes [{
+        :gridColor "#FFFFFF"
+        :gridAlpha 0.3
+        :dashLength 0
+    }]
+    :gridAboveGraphs true
+    :startDuration 1
+    :graphs [{
+        :balloonText "[[category]]: <b>[[value]]</b>"
+        :fillAlphas 0.8
+        :lineAlpha 0.2
+        :type :column
+        :valueField :visits
+    }]
+    :chartCursor {
+        :categoryBalloonEnabled false
+        :cursorAlpha 0
+        :zoomable true
+    }
+    :categoryField :country
+    :categoryAxis {
+        :gridPosition "start"
+        :gridAlpha 0
+        :tickPosition "start"
+        :tickLength 20
+    }
+    :exportConfig {
+     :menuTop 0
+     :menuItems [{
+      :icon "/lib/3/images/export.png"
+      :format 'png'   
+      }] 
+    }}))
+
+(defn amcharts-example[]
+  (fn[]
+  [:div "hello amcharts"]
+  ))
+
+
 (defn ^:export main []
+  ;(when-let [root6 (.getElementById js/document "app6")]
+  ;  (reagent/render-component [clock-example] root6))
   (when-let [root6 (.getElementById js/document "app6")]
-    (reagent/render-component [clock-example] root6))
+    (reagent/render-component [amcharts-example] root6))
   (when-let [root5 (.getElementById js/document "app5")]
     (reagent/render-component [shared-state] root5))
   (when-let [root4 (.getElementById js/document "app4")]

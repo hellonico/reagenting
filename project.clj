@@ -22,14 +22,15 @@
                  [com.cognitect/transit-cljs "0.8.199"]
 
                  [reagent "0.5.0-alpha"]
-                 [org.webjars/bootstrap "3.3.1"]]
+                 [org.webjars/bootstrap "3.3.1"]
+                 [org.webjars/amcharts "3.10.0"]
+                 
+                 ]
 
   :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]]
-
   :source-paths ["src"]
   :resource-paths ["resources" "resources-index/prod"]
   :target-path "target/%s"
-
   :main ^:skip-aot rente.run
 
   :cljsbuild
