@@ -46,8 +46,8 @@
     (fn []
       (js/setTimeout #(swap! seconds-elapsed inc) 1000)
       [:div
-      [:h1 "Dynamic timer example"]
-      [:div "Seconds Elapsed: " @seconds-elapsed]])))
+       [:h1 "Dynamic timer example"]
+       [:div "Seconds Elapsed: " @seconds-elapsed]])))
 
 ;;;
 ;; STATIC EXAMPLE
