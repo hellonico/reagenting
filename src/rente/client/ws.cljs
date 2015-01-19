@@ -28,7 +28,6 @@
   (event-msg-handler ev-msg))
 
 (let [packer (sente-transit/get-flexi-packer :edn)
-
       {:keys [chsk ch-recv send-fn state]}
       (sente/make-channel-socket! "/chsk" {:type :auto :packer packer})]
   (def chsk       chsk)

@@ -1,12 +1,13 @@
 (ns rente.client.app
     (:require-macros [cljs.core.async.macros :refer [go-loop]])
-    (:require [reagent.core :as reagent]
+    (:require 
+              [ajax.core :refer [GET POST]]
+              [reagent.core :as reagent]
               [rente.client.views :as views]
               [rente.client.ws :as ws]))
 
 (defonce state (reagent/atom {:title "RENTE"
                               :messages []
-
                               :re-render-flip false}))
 
 
@@ -172,10 +173,32 @@
          ]]
     ))
 
+(defonce weather-data (reagent/atom {}))
+
+(defn ajax-handler [response]
+  (let [city (first (response "list"))]
+  (reset! weather-data {:city (city "name") :temperature (get-in city ["main" "temp"])}))
+  (.log js/console (str response)))
+
+(defn ajax-example[]
+  [:div
+  [:h1 "Weather"]
+  (if (@weather-data :city)
+  [:div.col-sm-3
+  [:table.table.table-striped.table-hover
+  [:tr [:td (@weather-data :city)]]
+  [:tr [:td (@weather-data :temperature)]]]])
+  [:br]
+  [:button.btn.btn-danger {:type "button"
+      :on-click 
+      #(GET "http://api.openweathermap.org/data/2.5/find?q=Tokyo&units=metric" {:handler ajax-handler})} "Ajax me!"]]
+  )
 
 (defn ^:export main []
   ;(when-let [root6 (.getElementById js/document "app6")]
   ;  (reagent/render-component [clock-example] root6))
+  (when-let [root7 (.getElementById js/document "app7")]
+    (reagent/render-component [ajax-example] root7))
   (when-let [root6 (.getElementById js/document "app6")]
     (reagent/render-component [amcharts-example] root6))
   (when-let [root5 (.getElementById js/document "app5")]

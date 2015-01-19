@@ -12,6 +12,7 @@
                  [ch.qos.logback/logback-classic "1.1.2"]
                  [org.clojure/tools.logging "0.3.1"]
 
+                 [cljs-ajax "0.3.9"]
                  [ring/ring-core "1.3.2"]
                  [ring/ring-defaults "0.1.3"]
                  [compojure "1.3.1"]
