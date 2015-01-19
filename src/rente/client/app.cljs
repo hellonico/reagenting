@@ -6,7 +6,10 @@
               [rente.client.views :as views]
               [rente.client.ws :as ws]))
 
-(defonce state (reagent/atom {:title "RENTE"
+;;;
+;; BASIC EXAMPLE
+;;;
+(defonce state (reagent/atom {:title "Basic Example"
                               :messages []
                               :re-render-flip false}))
 
@@ -32,13 +35,9 @@
   (:re-render-flip @data)
   [views/main data])
 
-
-(defonce seconds-elapsed (reagent/atom 0))
-(defn timer-component [data]
-    (fn []
-      (js/setTimeout #(swap! data inc) 1000)
-      [:div.container
-      [:p.navbar-text "Seconds Elapsed since...: " @data]]))
+;;;
+;; TIME EXAMPLE
+;;;
 (defn timer-component2 []
   (let [seconds-elapsed (reagent/atom 0)]     ;; setup, and local state
     (fn []        ;; inner, render function is returned
@@ -46,23 +45,34 @@
       [:div "Seconds Elapsed: " @seconds-elapsed])))
 
 (defn some-component []
-  [:div.row
+  [:div
+  [:h1 "Time example"]
    [:div.col-sm-3]
    [:div.col-sm-9
-   [:h3 "I am some component!"]
+   [:h3 "I am some sub component!"]
    [:p.someclass 
     "I have " [:strong "bold"]
     [:span {:style {:color "red"}} " and red"]
     " text."]]])
 
+;;;
+;; COUNT EXAMPLE
+;;;
+
 (defn counting-component []
   (let [click-count (reagent/atom 0)]
     (fn []  
     [:div
+    [:h1 "Counting example"]
     "The atom " [:code "click-count"] " has value: "
     @click-count ". "
     [:button.btn.btn-danger {:type "button"
             :on-click #(swap! click-count inc)} "Click me!"]])))
+
+
+;;;
+;; SHARED STATE EXAMPLE
+;;;
 
 (defn atom-input [value]
   [:input {:type "text"
@@ -73,10 +83,13 @@
   (let [val (reagent/atom "foo")]
     (fn []
       [:div
+       [:h1 "Shared State Example"]
        [:p "The value is now: " @val]
        [:p "Change it here: " [atom-input val]]])))
 
-
+;;;
+;; CLOCK EXAMPLE
+;;;
 (def timer (reagent/atom (js/Date.)))
 (def time-color (reagent/atom "#f34"))
 (defn update-time [time]
@@ -97,11 +110,16 @@
             :value @time-color
             :on-change #(reset! time-color (-> % .-target .-value))}]])
 (defn clock-example []
-  [:div.row
+  [:div
    [:h1 "Clock Example"]
    [greeting "A simple clock"]
    [clock]
    [color-input]])
+
+;;;
+;; CHART EXAMPLE
+;;;
+
 
 (defonce chart-data (reagent/atom [
      {:country "China" :visits 2808} 
@@ -173,6 +191,9 @@
          ]]
     ))
 
+;;;
+;; AJAX EXAMPLE
+;;;
 (defonce weather-data (reagent/atom {}))
 
 (defn ajax-handler [response]
@@ -182,7 +203,7 @@
 
 (defn ajax-example[]
   [:div
-  [:h1 "Weather"]
+  [:h1 "Weather Example"]
   (if (@weather-data :city)
   [:div.col-sm-3
   [:table.table.table-striped.table-hover
@@ -194,9 +215,12 @@
       #(GET "http://api.openweathermap.org/data/2.5/find?q=Tokyo&units=metric" {:handler ajax-handler})} "Ajax me!"]]
   )
 
+;;;
+;; MAIN LOADING
+;;;
 (defn ^:export main []
-  ;(when-let [root6 (.getElementById js/document "app6")]
-  ;  (reagent/render-component [clock-example] root6))
+  (when-let [root8 (.getElementById js/document "app8")]
+    (reagent/render-component [clock-example] root8))
   (when-let [root7 (.getElementById js/document "app7")]
     (reagent/render-component [ajax-example] root7))
   (when-let [root6 (.getElementById js/document "app6")]
