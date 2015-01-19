@@ -13,5 +13,11 @@
    [:button.btn.btn-info {:on-click socket/test-socket-callback} "Send Message Callback"]
    [:br]
    [:button.btn.btn-info {:on-click socket/test-socket-event} "Send Message Event"]
+   [:table.table.table-striped.table-hover
+   [:th "Messages"]
+   [:tbody
+   (for [msg (:messages @data)]
+          [:tr [:td (str msg)]]
+          )
+   ]]
    ])
-

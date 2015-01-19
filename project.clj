@@ -4,7 +4,9 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [[org.clojure/clojure "1.7.0-alpha5"]
+  :dependencies [
+                 ; core
+                 [org.clojure/clojure "1.7.0-alpha5"]
                  [org.clojure/clojurescript "0.0-2665"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [com.stuartsierra/component "0.2.2"]
@@ -17,11 +19,14 @@
                  [ring/ring-defaults "0.1.3"]
                  [compojure "1.3.1"]
                  [http-kit "2.1.19"]
-
                  [com.taoensso/sente "1.3.0" :exclusions [org.clojure/tools.reader]]
+                 [secretary "1.2.1"]
+
+                 ; data
                  [com.cognitect/transit-clj "0.8.259" :exclusions [commons-codec]]
                  [com.cognitect/transit-cljs "0.8.199"]
 
+                 ; js
                  [reagent "0.5.0-alpha"]
                  [org.webjars/bootstrap "3.3.1"]
                  [org.webjars/amcharts "3.10.0"]
@@ -41,9 +46,9 @@
              {:output-to "resources/public/js/app.js"
               :output-dir "dev-resources/public/js/out"}}}}
 
-  :profiles {:dev-config {}
+    :profiles {:dev-config {}
 
-             :dev [:dev-config
+               :dev [:dev-config
                    {:dependencies [[org.clojure/tools.namespace "0.2.7"]
                                    [figwheel "0.2.1-SNAPSHOT"]
                                    [org.webjars/react "0.12.1"]]
