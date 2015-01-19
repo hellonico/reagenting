@@ -1,5 +1,6 @@
 ## Documents
 
+* https://lambdahands.github.io/clojure/vizualization/clojurescript/2014/08/10/d3-methods-as-data.html
 * https://github.com/juxt/bidi
 * https://github.com/yogthos/reagent-secretary-example
 * https://github.com/enterlab/rente

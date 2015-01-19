@@ -30,6 +30,7 @@
                  [reagent "0.5.0-alpha"]
                  [org.webjars/bootstrap "3.3.1"]
                  [org.webjars/amcharts "3.10.0"]
+                 [org.webjars/d3js "3.5.3"]
                  
                  ]
 

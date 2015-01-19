@@ -236,10 +236,39 @@
   [:button.btn.btn-info {:type "button"
       :on-click #(secretary/dispatch! "/one")} "Route 2"]])
 
+
+;;;
+;; D3 EXAMPLE
+;;;
+(defonce d3-data (reagent/atom {}))
+(defn d3-example[]
+  (fn []
+      (-> 
+        js/d3
+      (.select "#viz")
+      (.append "svg")
+      (.attr "width" 100)
+      (.attr "height" 100)
+      (.append "circle")
+      (.style "stroke" "gray")
+      (.style "fill" "white")
+      (.attr "r" 40)
+      (.attr "cx" 50)
+      (.attr "cy" 50)
+      (.on "mouseover" 
+        #(.log js/console "mouser" %))
+        ;#(.style (.select js/d3 %) "fill" "aliceblue"))
+      )
+    [:div
+    [:h1 "D3 Example"]
+    ]))
+
 ;;;
 ;; MAIN LOADING
 ;;;
 (defn ^:export main []
+  (when-let [root9 (.getElementById js/document "app9")]
+    (reagent/render-component [d3-example] root9))
   (when-let [root0 (.getElementById js/document "app0")]
     (reagent/render-component [routing-example] root0))
   (when-let [root8 (.getElementById js/document "app8")]
