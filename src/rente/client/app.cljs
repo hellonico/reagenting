@@ -96,7 +96,8 @@
             :value @time-color
             :on-change #(reset! time-color (-> % .-target .-value))}]])
 (defn clock-example []
-  [:div
+  [:div.row
+   [:h1 "Clock Example"]
    [greeting "A simple clock"]
    [clock]
    [color-input]])
@@ -106,8 +107,7 @@
      {:country "USA" :visits 2300}
      {:country "France" :visits 2500}
      {:country "Japan" :visits 3000}
-     ]
-  ))
+     ]))
 
 (defn amcharts-example[]
   (fn[]
@@ -149,6 +149,14 @@
       }] 
     }}))
       [:div
+        [:h1 "Charts Example"]
+        [:div#chartdata 
+        [:table.table.table-striped.table-hover
+          [:tr [:th "Country"]] 
+        (for [d @chart-data]
+          [:tr [:td {:on-click #(js/alert (str (d :country) "->" (d :visits)))} (str (d :country))]]
+          )
+        ]]
         [:div#chartdiv "hello amcharts"]
         [:button.btn.btn-warning 
         {:type "button"
