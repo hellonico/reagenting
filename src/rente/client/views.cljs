@@ -10,8 +10,8 @@
    [:br]
    [:span "And figwheel.. w00t!"]
    [:br]
-   [:button {:on-click socket/test-socket-callback} "Send Message Callback"]
+   [:button.btn.btn-info {:on-click socket/test-socket-callback} "Send Message Callback"]
    [:br]
-   [:button {:on-click socket/test-socket-event} "Send Message Event"]
+   [:button.btn.btn-info {:on-click socket/test-socket-event} "Send Message Event"]
    ])
 

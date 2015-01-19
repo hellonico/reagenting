@@ -106,8 +106,21 @@
      {:country "China" :visits 2808} 
      {:country "USA" :visits 2300}
      {:country "France" :visits 2500}
-     {:country "Japan" :visits 3000}
-     ]))
+     {:country "Japan" :visits 3000}]))
+
+(defn chart-rows []
+  [:div#chartdata 
+        [:table.table.table-striped.table-hover
+        ; this <tbody> is added externally if not present
+        ; important to keep it here
+         [:thead
+          [:tr [:th "Country"]]]
+         [:tbody
+          
+        (for [d @chart-data]
+          [:tr [:td {:on-click #(js/alert (str (d :country) "->" (d :visits)))} (str (d :country))]]
+          )
+        ]]])
 
 (defn amcharts-example[]
   (fn[]
@@ -150,13 +163,7 @@
     }}))
       [:div
         [:h1 "Charts Example"]
-        [:div#chartdata 
-        [:table.table.table-striped.table-hover
-          [:tr [:th "Country"]] 
-        (for [d @chart-data]
-          [:tr [:td {:on-click #(js/alert (str (d :country) "->" (d :visits)))} (str (d :country))]]
-          )
-        ]]
+        [chart-rows]
         [:div#chartdiv "hello amcharts"]
         [:button.btn.btn-warning 
         {:type "button"
