@@ -18,6 +18,16 @@
     (when (= 0 (mod @ping-counts 10))
       (println "ping counts: " @ping-counts)))
 
+(defmethod event-msg-handler :rente/testevent2
+  [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
+  (println "testevent::" ?data))
+
+(defmethod event-msg-handler :rente/testevent3
+  [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
+  (println "broadcast call::" ?data)
+  (println (:session ring-req)))
+  ;(broadcast! (rente.system/system :ws-connection) {:message "hello"}))
+
 (defmethod event-msg-handler :rente/testevent
   [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
   (if ?reply-fn
@@ -61,7 +71,6 @@
     (assoc component
       :ch-recv nil :connected-uids nil :send-fn nil :ring-handlers nil)))
 
-
 (defn send! [ws-connection user-id event]
   ((:send-fn ws-connection) user-id event))
 
@@ -72,9 +81,5 @@
 (defn ring-handlers [ws-connection]
   (:ring-handlers ws-connection))
 
-
 (defn new-ws-connection []
   (map->WSConnection {}))
-
-
-

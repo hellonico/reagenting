@@ -13,8 +13,15 @@
 ;;;
 (defonce state (reagent/atom 
   {:title "Websocket Example"
-   :messages ["test 1"]
+   :messages []
    :re-render-flip false}))
+
+; update real time by updating the state and
+; saving the file 
+
+;(reset! state {:title "Websocket Example"
+;   :messages ["test1" "test2"]
+;   :re-render-flip false})
 
 (defmulti handle-event (fn [data [ev-id ev-data]] ev-id))
 
@@ -137,6 +144,16 @@
      {:country "France" :visits 2500}
      {:country "Japan" :visits 3000}]))
 
+; update the graph real time
+; by updating the chat-data
+(comment 
+(reset! chart-data [
+     {:country "China" :visits 2808} 
+     {:country "USA" :visits 2300}
+     {:country "France" :visits 3000}
+     {:country "Japan" :visits 3000}])
+)
+
 ; row
 (defn chart-rows []
   [:div#chartdata 
@@ -241,12 +258,21 @@
           (str "Current route is " msg)
           (str "No route clicked yet"))]
   [:br]
+  ;[:button.btn.btn-success 
+  ;   {:type "button"
+  ;    :on-click #(secretary/dispatch! "/zero")} "Route 0"]
   [:button.btn.btn-danger 
      {:type "button"
       :on-click #(secretary/dispatch! "/one")} "Route 1"]
   [:button.btn.btn-info 
      {:type "button"
       :on-click #(secretary/dispatch! "/two")} "Route 2"]])
+
+; remount at runtime
+(comment 
+  (when-let [root0 (.getElementById js/document "app0")]
+    (reagent/render-component [routing-example] root0))
+)
 
 ;;;
 ;; D3 EXAMPLE, including custom reagent components
@@ -263,17 +289,17 @@
 
       (.select ".viz")
       (.append "svg")
-      (.attr "width" 100)
-      (.attr "height" 100)
+      (.attr "width" 150)
+      (.attr "height" 150)
       (.append "circle"))]
 
       (doto circle  
       
        (.style "stroke" "gray")
        (.style "fill" "white")
-       (.attr "r" 40)
-       (.attr "cx" 50)
-       (.attr "cy" 50)
+       (.attr "r" 50)
+       (.attr "cx" 100)
+       (.attr "cy" 51)
 
        (.on "mouseover" 
         #(.style circle "fill" "aliceblue"))
@@ -284,6 +310,9 @@
   (reagent/create-class 
     {:render d3-home
      :component-did-mount d3-did-mount}))
+
+;(when-let [root9 (.getElementById js/document "app9")]
+;    (reagent/render-component [d3-component] root9))
 
 ;;;
 ;; MAIN LOADING

@@ -11,11 +11,13 @@
    [:br]
    [:span "And figwheel.. w00t!"]
    [:br]
+   [:button.btn.btn-info {:on-click socket/test-socket-broadcast} "Send Message 3"]
+   [:br]
    [:button.btn.btn-info {:on-click socket/test-socket-callback} "Send Message Callback"]
    [:br]
    [:button.btn.btn-info {:on-click socket/test-socket-event} "Send Message Event"]
    [:table.table.table-striped.table-hover
-   [:th "Messages"]
+   [:th "List of messages"]
    [:tbody
    (for [msg (:messages @data)]
           [:tr [:td (str msg)]]
