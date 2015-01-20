@@ -47,6 +47,7 @@
       (js/setTimeout #(swap! seconds-elapsed inc) 1000)
       [:div
        [:h1 "Dynamic timer example"]
+       [:blockquote.p "Refreshes every 1s and update the number of seconds elapsed since opening the page."]
        [:div "Seconds Elapsed: " @seconds-elapsed]])))
 
 ;;;
@@ -55,6 +56,7 @@
 (defn some-component []
   [:div
   [:h1 "Static example"]
+  [:blockquote.p "A simple static component, using simple templating."]
    [:div.col-sm-3]
    [:div.col-sm-9
    [:h3 "I am some static component!"]
@@ -72,6 +74,7 @@
     (fn []  
     [:div
     [:h1 "Counting example"]
+    [:blockquote.p "Shows how to embedded data inside the component, and increase a simple counter."]
     "The atom " [:code "click-count"] " has value: "
     @click-count ". "
     [:button.btn.btn-danger {:type "button"
@@ -89,17 +92,10 @@
     (fn []
       [:div
        [:h1 "Shared State Example"]
+       [:blockquote.p "This shows how to share data accross the page."]
        [:p "The value is now: " @val]
        [:p "Change it here: " [atom-input val]]])))
 
-;;;
-;; VALIDATING FORM EXAMPLE
-;;;
-(defn validating-component []
-    (fn []  
-    [:div
-    [:h1 "Validating Component"]]
-    ))
 ;;;
 ;; CLOCK EXAMPLE
 ;;;
@@ -125,6 +121,7 @@
 (defn clock-example []
   [:div
    [:h1 "Clock Example"]
+   [:blockquote.p "This is a clock refreshing every 100ms"]
    [greeting "A simple clock"]
    [clock]
    [color-input]])
@@ -132,12 +129,15 @@
 ;;;
 ;; CHART EXAMPLE
 ;;;
+
+; data
 (defonce chart-data (reagent/atom [
      {:country "China" :visits 2808} 
      {:country "USA" :visits 2300}
      {:country "France" :visits 2500}
      {:country "Japan" :visits 3000}]))
 
+; row
 (defn chart-rows []
   [:div#chartdata 
         [:table.table.table-striped.table-hover
@@ -146,11 +146,9 @@
          [:thead
           [:tr [:th "Country"]]]
          [:tbody
-          
-         (for [d @chart-data]
+          (for [d @chart-data]
           [:tr [:td {:on-click #(js/alert (str (d :country) "->" (d :visits)))} (str (d :country))]]
-          )
-        ]]])
+          )]]])
 
 (defn amcharts-example[]
   (fn[]
@@ -189,10 +187,11 @@
      :menuItems [{
       :icon "/lib/3/images/export.png"
       :format 'png'   
-      }] 
-    }}))
+      }]}}))
+
       [:div
         [:h1 "Charts Example"]
+        [:blockquote.p "This creates an amchart using defined values, and shows how to dynamically add values at runtime."]
         [chart-rows]
         [:div#chartdiv "hello amcharts"]
         [:button.btn.btn-warning 
@@ -216,6 +215,7 @@
 (defn ajax-example[]
   [:div
   [:h1 "Weather Example"]
+  [:blockquote.p "This execute an ajax call to openweathermap.org and display the result in a table."]
   (if (@weather-data :city)
   [:div.col-sm-3
   [:table.table.table-striped.table-hover
@@ -232,18 +232,21 @@
 (defonce routing-data (reagent/atom {}))
 (defroute routing "/:id" [id]
   (reset! routing-data {:id id}))
+
 (defn routing-example[]
   [:div
   [:h1 "Routing Example"]
+  [:blockquote.p "This is using a routing algorithm and dispatch routes when click the buttons below"]
   [:span (if-let [msg (@routing-data :id)]
           (str "Current route is " msg)
-          (str "No route clicked yet"))
-       ]
-  [:button.btn.btn-danger {:type "button"
-      :on-click #(secretary/dispatch! "/two")} "Route 1"]
-  [:button.btn.btn-info {:type "button"
-      :on-click #(secretary/dispatch! "/one")} "Route 2"]])
-
+          (str "No route clicked yet"))]
+  [:br]
+  [:button.btn.btn-danger 
+     {:type "button"
+      :on-click #(secretary/dispatch! "/one")} "Route 1"]
+  [:button.btn.btn-info 
+     {:type "button"
+      :on-click #(secretary/dispatch! "/two")} "Route 2"]])
 
 ;;;
 ;; D3 EXAMPLE, including custom reagent components
@@ -271,7 +274,7 @@
        (.attr "r" 40)
        (.attr "cx" 50)
        (.attr "cy" 50)
-       
+
        (.on "mouseover" 
         #(.style circle "fill" "aliceblue"))
        (.on "mouseout" 

@@ -4,6 +4,7 @@
 (defn main [data]
   [:div
    [:h1 (:title @data)]
+   [:blockquote.p "The base sample, using websockets to communicate with the clojure code on the server."]
    [:span "Hello world! This is reagent!"]
    [:br]
    [:span "And sente seems to work too.."]
@@ -18,6 +19,4 @@
    [:tbody
    (for [msg (:messages @data)]
           [:tr [:td (str msg)]]
-          )
-   ]]
-   ])
+          )]]])
