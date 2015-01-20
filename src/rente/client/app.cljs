@@ -146,13 +146,13 @@
 
 ; update the graph real time
 ; by updating the chat-data
-(comment 
+;(comment 
 (reset! chart-data [
-     {:country "China" :visits 2808} 
+     {:country "China" :visits 3808} 
      {:country "USA" :visits 2300}
      {:country "France" :visits 3000}
-     {:country "Japan" :visits 3000}])
-)
+     {:country "Japan" :visits 1000}])
+;)
 
 ; row
 (defn chart-rows []
@@ -247,6 +247,7 @@
 ;; ROUTING EXAMPLE
 ;;;
 (defonce routing-data (reagent/atom {}))
+
 (defroute routing "/:id" [id]
   (reset! routing-data {:id id}))
 
@@ -258,9 +259,9 @@
           (str "Current route is " msg)
           (str "No route clicked yet"))]
   [:br]
-  ;[:button.btn.btn-success 
-  ;   {:type "button"
-  ;    :on-click #(secretary/dispatch! "/zero")} "Route 0"]
+  [:button.btn.btn-success 
+     {:type "button"
+      :on-click #(secretary/dispatch! "/zero")} "Route 0"]
   [:button.btn.btn-danger 
      {:type "button"
       :on-click #(secretary/dispatch! "/one")} "Route 1"]
@@ -289,17 +290,17 @@
 
       (.select ".viz")
       (.append "svg")
-      (.attr "width" 150)
-      (.attr "height" 150)
+      (.attr "width" 200)
+      (.attr "height" 100)
       (.append "circle"))]
 
       (doto circle  
       
        (.style "stroke" "gray")
        (.style "fill" "white")
-       (.attr "r" 50)
-       (.attr "cx" 100)
-       (.attr "cy" 51)
+       (.attr "r" 45)
+       (.attr "cx" 50)
+       (.attr "cy" 50)
 
        (.on "mouseover" 
         #(.style circle "fill" "aliceblue"))
@@ -315,9 +316,42 @@
 ;    (reagent/render-component [d3-component] root9))
 
 ;;;
+;; DRAG COMPONENT
+;;;
+
+(defn drag-home []
+  [:div 
+   [:h1 "Drag and drop example"]
+  [:blockquote.p "Try to drag and drop the square on the other one ..."]
+   [:div#draggable.ui-widget-content [:p "Drag me to my target"]]
+   [:div#droppable.ui-widget-header [:p "Drop here"]]
+   ])
+
+(defn drag-did-mount []
+  (js/$ 
+    (fn []
+      (.draggable (js/$ "#draggable"))
+      (.droppable (js/$ "#droppable")
+        #js {:drop (fn [event ui]
+         (this-as this
+          (do 
+          (js/setTimeout #(.removeClass (js/$ this) "ui-state-highlight")  1000)
+          ;(.html (.find 
+            (.addClass (js/$ this) "ui-state-highlight") 
+          ; "p") "Dropped!")
+          )))}))))
+
+(defn drag-component []
+  (reagent/create-class 
+    {:render drag-home
+     :component-did-mount drag-did-mount}))
+
+;;;
 ;; MAIN LOADING
 ;;;
 (defn ^:export main []
+  (when-let [root01 (.getElementById js/document "app01")]
+    (reagent/render-component [drag-component] root01))
   (when-let [root9 (.getElementById js/document "app9")]
     (reagent/render-component [d3-component] root9))
   (when-let [root0 (.getElementById js/document "app0")]
