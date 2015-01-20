@@ -9,7 +9,7 @@
               ))
 
 ;;;
-;; BASIC EXAMPLE
+;; WEBSOCKET EXAMPLE
 ;;;
 (defonce state (reagent/atom 
   {:title "Websocket Example"
@@ -92,6 +92,14 @@
        [:p "The value is now: " @val]
        [:p "Change it here: " [atom-input val]]])))
 
+;;;
+;; VALIDATING FORM EXAMPLE
+;;;
+(defn validating-component []
+    (fn []  
+    [:div
+    [:h1 "Validating Component"]]
+    ))
 ;;;
 ;; CLOCK EXAMPLE
 ;;;
@@ -238,37 +246,48 @@
 
 
 ;;;
-;; D3 EXAMPLE
+;; D3 EXAMPLE, including custom reagent components
 ;;;
-(defonce d3-data (reagent/atom {}))
-(defn d3-example[]
-  (fn []
-      (-> 
-        js/d3
-      (.select "#viz")
+(defn d3-home[]
+  [:div
+    [:h1 "D3 Example"]
+    [:blockquote.p "This will change the background color when you mouse over and out"]
+    [:div.viz]])
+
+(defn d3-did-mount[]
+    (let [circle (-> 
+      js/d3
+
+      (.select ".viz")
       (.append "svg")
       (.attr "width" 100)
       (.attr "height" 100)
-      (.append "circle")
-      (.style "stroke" "gray")
-      (.style "fill" "white")
-      (.attr "r" 40)
-      (.attr "cx" 50)
-      (.attr "cy" 50)
-      (.on "mouseover" 
-        #(.log js/console "mouser" %))
-        ;#(.style (.select js/d3 %) "fill" "aliceblue"))
-      )
-    [:div
-    [:h1 "D3 Example"]
-    ]))
+      (.append "circle"))]
+
+      (doto circle  
+      
+       (.style "stroke" "gray")
+       (.style "fill" "white")
+       (.attr "r" 40)
+       (.attr "cx" 50)
+       (.attr "cy" 50)
+       
+       (.on "mouseover" 
+        #(.style circle "fill" "aliceblue"))
+       (.on "mouseout" 
+        #(.style circle "fill" "white")))))
+
+(defn d3-component []
+  (reagent/create-class 
+    {:render d3-home
+     :component-did-mount d3-did-mount}))
 
 ;;;
 ;; MAIN LOADING
 ;;;
 (defn ^:export main []
   (when-let [root9 (.getElementById js/document "app9")]
-    (reagent/render-component [d3-example] root9))
+    (reagent/render-component [d3-component] root9))
   (when-let [root0 (.getElementById js/document "app0")]
     (reagent/render-component [routing-example] root0))
   (when-let [root8 (.getElementById js/document "app8")]

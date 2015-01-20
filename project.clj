@@ -14,7 +14,6 @@
                  [ch.qos.logback/logback-classic "1.1.2"]
                  [org.clojure/tools.logging "0.3.1"]
 
-                 [cljs-ajax "0.3.9"]
                  [ring/ring-core "1.3.2"]
                  [ring/ring-defaults "0.1.3"]
                  [compojure "1.3.1"]
@@ -22,15 +21,16 @@
                  [com.taoensso/sente "1.3.0" :exclusions [org.clojure/tools.reader]]
                  [secretary "1.2.1"]
 
-                 ; data
                  [com.cognitect/transit-clj "0.8.259" :exclusions [commons-codec]]
                  [com.cognitect/transit-cljs "0.8.199"]
 
-                 ; js
                  [reagent "0.5.0-alpha"]
+                 
+                 ; optional
                  [org.webjars/bootstrap "3.3.1"]
                  [org.webjars/amcharts "3.10.0"]
                  [org.webjars/d3js "3.5.3"]
+                 [cljs-ajax "0.3.9"]
                  
                  ]
 
