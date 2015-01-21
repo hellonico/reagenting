@@ -9,9 +9,11 @@
             [org.httpkit.server :refer (run-server)]
             [rente.ws :as ws]))
 
+
 (defn handler [ajax-post-fn ajax-get-or-ws-handshake-fn]
   (routes
    (GET  "/"     _   (clojure.java.io/resource "index.html"))
+   (GET  "/2"    _   "45")
    (GET  "/chsk" req (ajax-get-or-ws-handshake-fn req))
    (POST "/chsk" req (ajax-post-fn req))
    (route/not-found "<h1>Page not found</h1>")))
@@ -26,7 +28,6 @@
     (-> handler
         (wrap-defaults ring-defaults-config)
         (wrap-resource "/META-INF/resources"))))
-
 
 (defrecord HttpServer [port ws-connection server-stop]
   component/Lifecycle

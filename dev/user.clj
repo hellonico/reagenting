@@ -1,4 +1,5 @@
 (ns user
+  (:require [clojure-watch.core :refer [start-watch]])
   (:require
    [clojure.java.io :as io]
    [clojure.java.javadoc :refer [javadoc]]
@@ -16,7 +17,7 @@
 (def system nil)
 
 (defn init []
-  (alter-var-root #'system (fn [] (system/system (config/get-config)))))
+  (alter-var-root #'system (fn [s] (system/system (config/get-config)))))
 
 (defn start []
   (alter-var-root #'system component/start))
@@ -29,6 +30,19 @@
   (init)
   (start))
 
+; reloads too much, ws screwing up
 (defn reset []
   (stop)
   (refresh :after 'user/run))
+
+(defn reload-app
+  []
+  (component/stop (get system :http-server))
+  (refresh :after 'user/run))
+
+(defn watch[]  
+  (start-watch [{:path "src"
+               :event-types [:create :modify :delete]
+               :bootstrap (fn [path] (println "Starting to watch " path))
+               :callback (fn[event filename] (doall (reload-app)))
+               :options {:recursive true}}]))

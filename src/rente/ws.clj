@@ -66,7 +66,7 @@
           (->WSRingHandlers ajax-post-fn ajax-get-or-ws-handshake-fn)))))
   (stop [component]
     (when ch-recv (async/close! ch-recv))
-    (log/debug "WebSocket connection stopped")
+    (log/debug "WebSocket connection stopping")
     (:stop-the-thing component)
     (assoc component
       :ch-recv nil :connected-uids nil :send-fn nil :ring-handlers nil)))

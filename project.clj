@@ -73,8 +73,11 @@
 
                :dev [:dev-config
                    {:dependencies [
+                                   ;[clojure-watch "LATEST"]
+                                   ; needed ?
                                    [org.clojure/tools.nrepl "0.2.7"]
                                    [org.clojure/tools.namespace "0.2.8"]
+                                   
                                    [figwheel "0.2.2-SNAPSHOT"]
                                    [org.webjars/react "0.12.1"]]
 
