@@ -22,6 +22,11 @@ UI COMPONENTS
 * http://nvd3.org
 * https://lambdahands.github.io/clojure/vizualization/clojurescript/2014/08/10/d3-methods-as-data.html
 
+CIRE
+* https://github.com/danielsz/system
+* http://clojuremongodb.info/articles/aggregation.html
+* Datascript example: https://github.com/tonsky/datascript
+
 NOT USED
 * https://github.com/juxt/bidi
 * https://github.com/yogthos/reagent-secretary-example
