@@ -52,7 +52,7 @@
    :garden {:builds [{;; Optional name of the build:
                      :id "screen"
                      ;; Source paths where the stylesheet source code is
-                     :source-paths ["src/garden"]
+                     :source-paths ["src-css/garden"]
                      ;; The var containing your stylesheet:
                      :stylesheet garden.myfirst/screen
                      ;; Compiler flags passed to `garden.core/css`:
