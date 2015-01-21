@@ -6,14 +6,26 @@ COOKBOOK
 BINARY CLOCK
 * http://holmsand.github.io/reagent/news/binary-clock.html
 
+WEBGL
+* https://github.com/webjars/pixi.js
+
 THEMING
 * http://bootswatch.com/readable/
 * http://topcoat.io/
 
+STYLES
+* https://github.com/noprompt/garden
+* https://github.com/noprompt/lein-garden
+
+UI COMPONENTS
+* https://github.com/Frozenlock/reagent-contextmenu
 * http://nvd3.org
 * https://lambdahands.github.io/clojure/vizualization/clojurescript/2014/08/10/d3-methods-as-data.html
+
+NOT USED
 * https://github.com/juxt/bidi
 * https://github.com/yogthos/reagent-secretary-example
+
 * https://github.com/enterlab/rente
 * http://getbootstrap.com/components/
 * http://www.w3schools.com/bootstrap/bootstrap_ref_css_tables.asp

@@ -1,0 +1,62 @@
+body {
+  line-height: 1.5;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+body div {
+  font-family: Verdana;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+h1 {
+  margin-left: 5%;
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 36px;
+  color: #5B83AC;
+  font-family: Poiret One;
+}
+
+blockquote {
+  margin: 2.0em 10px;
+  padding: 0.5em 10px;
+  quotes: C, D, 8, 9;
+  border-left: 10px solid #ccc;
+  background: #f9f9f9;
+}
+
+blockquote before {
+  vertical-align: -0.4em;
+  margin-right: 0.25em;
+  line-height: 0.1em;
+  font-size: 4em;
+  content: open-quote;
+  color: #ccc;
+}
+
+blockquote p {
+  font-size: 1em;
+  display: inline;
+}
+
+#draggable {
+  margin: 10px 10px 10px 0;
+  padding: 0.5em;
+  height: 100px;
+  width: 100px;
+}
+
+#droppable {
+  margin: 10px;
+  height: 150px;
+  padding: 0.5em;
+  width: 150px;
+}
+
+#chartdiv {
+  height: 100px;
+  width: 670px;
+  margin-left: -30%;
+}

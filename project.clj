@@ -36,14 +36,30 @@
                  [org.webjars/jquery "2.1.3"]
                  ]
 
-  :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"][lein-less "1.7.2"]]
+  :plugins [
+    [lein-cljsbuild "1.0.4-SNAPSHOT"]
+    [lein-garden "0.2.5"]
+  ]
   :source-paths ["src"]
   :resource-paths ["resources" "resources-index/prod"]
   :target-path "target/%s"
+
   :main ^:skip-aot rente.run
 
   :less {:source-paths ["src/less"]
         :target-path "resources/public/css"}
+
+   :garden {:builds [{;; Optional name of the build:
+                     :id "screen"
+                     ;; Source paths where the stylesheet source code is
+                     :source-paths ["src/garden"]
+                     ;; The var containing your stylesheet:
+                     :stylesheet garden.myfirst/screen
+                     ;; Compiler flags passed to `garden.core/css`:
+                     :compiler {;; Where to save the file:
+                                :output-to "resources/public/css/garden.css"
+                                ;; Compress the output?
+                                :pretty-print? true}}]}
 
   :cljsbuild
   {:builds
@@ -55,8 +71,9 @@
     :profiles {:dev-config {}
 
                :dev [:dev-config
-                   {:dependencies [[org.clojure/tools.namespace "0.2.7"]
-                                   [figwheel "0.2.1-SNAPSHOT"]
+                   {:dependencies [
+                                   [org.clojure/tools.namespace "0.2.8"]
+                                   [figwheel "0.2.2-SNAPSHOT"]
                                    [org.webjars/react "0.12.1"]]
 
                     :plugins [[lein-figwheel "0.2.2-SNAPSHOT" :exclusions [org.clojure/tools.reader org.clojure/clojurescript clj-stacktrace]]
@@ -64,7 +81,7 @@
 
                     :source-paths ["dev"]
                     :resource-paths ^:replace
-                    ["resources" "dev-resources" "resources-index/dev"]
+                      ["resources" "dev-resources" "resources-index/dev"]
 
                     :cljsbuild
                     {:builds
