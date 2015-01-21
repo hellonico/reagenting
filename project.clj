@@ -36,11 +36,14 @@
                  [org.webjars/jquery "2.1.3"]
                  ]
 
-  :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]]
+  :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"][lein-less "1.7.2"]]
   :source-paths ["src"]
   :resource-paths ["resources" "resources-index/prod"]
   :target-path "target/%s"
   :main ^:skip-aot rente.run
+
+  :less {:source-paths ["src/less"]
+        :target-path "resources/public/css"}
 
   :cljsbuild
   {:builds

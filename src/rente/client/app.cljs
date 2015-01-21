@@ -106,12 +106,12 @@
 ;; CLOCK EXAMPLE
 ;;;
 (def timer (reagent/atom (js/Date.)))
-(def time-color (reagent/atom "#f34"))
+(def time-color (reagent/atom "#77ccbb"))
 (defn update-time [time]
   ;; Update the time every 1/10 second to be accurate...
   (js/setTimeout #(reset! time (js/Date.)) 100))
-(defn greeting [message]
-  [:h3 message])
+;(defn greeting [message]
+;  [:h3 message])
 (defn clock []
   (update-time timer)
   (let [time-str (-> @timer .toTimeString (clojure.string/split " ") first)]
@@ -127,8 +127,8 @@
 (defn clock-example []
   [:div
    [:h1 "Clock Example"]
-   [:blockquote.p "This is a clock refreshing every 100ms"]
-   [greeting "A simple clock"]
+   [:blockquote.p "This is a clock refreshing every 100ms. You can chang its color."]
+   ;[greeting "A simple clock"]
    [clock]
    [color-input]])
 
