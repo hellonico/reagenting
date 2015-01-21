@@ -30,8 +30,10 @@
                  [org.webjars/bootstrap "3.3.1"]
                  [org.webjars/amcharts "3.10.0"]
                  [org.webjars/d3js "3.5.3"]
+
                  [cljs-ajax "0.3.9"]
-                 
+                 [org.webjars/jquery-ui "1.11.2"]
+                 [org.webjars/jquery "2.1.3"]
                  ]
 
   :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]]
@@ -54,7 +56,7 @@
                                    [figwheel "0.2.1-SNAPSHOT"]
                                    [org.webjars/react "0.12.1"]]
 
-                    :plugins [[lein-figwheel "0.2.1-SNAPSHOT" :exclusions [org.clojure/tools.reader org.clojure/clojurescript clj-stacktrace]]
+                    :plugins [[lein-figwheel "0.2.2-SNAPSHOT" :exclusions [org.clojure/tools.reader org.clojure/clojurescript clj-stacktrace]]
                               [lein-environ "1.0.0"]]
 
                     :source-paths ["dev"]

@@ -1,7 +1,6 @@
 (ns rente.client.app
     (:require-macros [cljs.core.async.macros :refer [go-loop]])
-    (:require 
-              [secretary.core :as secretary :refer-macros [defroute]]
+    (:require [secretary.core :as secretary :refer-macros [defroute]]
               [ajax.core :refer [GET POST]]
               [reagent.core :as reagent]
               [rente.client.views :as views]
@@ -91,7 +90,7 @@
 ;; SHARED STATE EXAMPLE
 ;;;
 (defn atom-input [value]
-  [:input {:type "text"
+  [:input.form-control {:type "text"
            :value @value
            :on-change #(reset! value (-> % .-target .-value))}])
 (defn shared-state []
@@ -322,7 +321,7 @@
 (defn drag-home []
   [:div 
    [:h1 "Drag and drop example"]
-  [:blockquote.p "Try to drag and drop the square on the other one ..."]
+   [:blockquote.p "Try to drag and drop the square on the other one ..."]
    [:div#draggable.ui-widget-content [:p "Drag me to my target"]]
    [:div#droppable.ui-widget-header [:p "Drop here"]]
    ])

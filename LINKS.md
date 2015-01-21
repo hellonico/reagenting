@@ -6,6 +6,10 @@ COOKBOOK
 BINARY CLOCK
 * http://holmsand.github.io/reagent/news/binary-clock.html
 
+THEMING
+* http://bootswatch.com/readable/
+* http://topcoat.io/
+
 * http://nvd3.org
 * https://lambdahands.github.io/clojure/vizualization/clojurescript/2014/08/10/d3-methods-as-data.html
 * https://github.com/juxt/bidi
