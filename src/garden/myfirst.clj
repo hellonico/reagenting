@@ -20,8 +20,8 @@
    [:h1 {
    	:font-family "Poiret One"
   	:color light-blue
-  	:font-size (px 36)
-   	:font-weight "bold"
+  	:font-size (px 42)
+   	;:font-weight "bold"
   	:margin-top (px 30)
   	:margin-left "5%"
    }]
@@ -30,6 +30,8 @@
 	:background "#f9f9f9"
 	:border-left "10px solid #ccc"
 	:margin "2.0em 10px"
+  :font-family "Poiret One"
+  :font-size (em 1)
 	:padding "0.5em 10px"
 	:quotes ["\201C""\201D""\2018""\2019"]
 	}
@@ -43,7 +45,6 @@
   	}]
   	[:p {
   	:display "inline"
-  	:font-size (em 1)
   	}]]
 
 	[:#draggable { 

@@ -11,7 +11,7 @@
    [:br]
    [:span "And figwheel.. w00t!"]
    [:br]
-   [:button.btn.btn-info {:on-click socket/test-socket-broadcast} "Send Message 3"]
+   [:button.btn.btn-info {:on-click socket/test-socket-broadcast} "Send Message"]
    [:br]
    [:button.btn.btn-info {:on-click socket/test-socket-callback} "Send Message Callback"]
    [:br]

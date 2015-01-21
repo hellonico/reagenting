@@ -13,16 +13,17 @@ body div {
 h1 {
   margin-left: 5%;
   margin-top: 30px;
-  font-weight: bold;
-  font-size: 36px;
+  font-size: 42px;
   color: #5B83AC;
   font-family: Poiret One;
 }
 
 blockquote {
-  margin: 2.0em 10px;
-  padding: 0.5em 10px;
   quotes: C, D, 8, 9;
+  padding: 0.5em 10px;
+  font-size: 1em;
+  font-family: Poiret One;
+  margin: 2.0em 10px;
   border-left: 10px solid #ccc;
   background: #f9f9f9;
 }
@@ -37,7 +38,6 @@ blockquote before {
 }
 
 blockquote p {
-  font-size: 1em;
   display: inline;
 }
 

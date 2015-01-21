@@ -70,16 +70,21 @@
 
     :profiles {:dev-config {}
 
+
                :dev [:dev-config
                    {:dependencies [
+                                   [org.clojure/tools.nrepl "0.2.7"]
                                    [org.clojure/tools.namespace "0.2.8"]
                                    [figwheel "0.2.2-SNAPSHOT"]
                                    [org.webjars/react "0.12.1"]]
 
-                    :plugins [[lein-figwheel "0.2.2-SNAPSHOT" :exclusions [org.clojure/tools.reader org.clojure/clojurescript clj-stacktrace]]
-                              [lein-environ "1.0.0"]]
+                    :plugins [
+                    [lein-figwheel "0.2.2-SNAPSHOT" :exclusions [org.clojure/tools.reader org.clojure/clojurescript clj-stacktrace]]
+                    [lein-environ "1.0.0"]]
 
                     :source-paths ["dev"]
+                    ;:repl-options 
+                    ;    {:init (load-file "dev/user.clj")}
                     :resource-paths ^:replace
                       ["resources" "dev-resources" "resources-index/dev"]
 
