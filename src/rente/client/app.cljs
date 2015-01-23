@@ -24,6 +24,7 @@
 
 (defmulti handle-event (fn [data [ev-id ev-data]] ev-id))
 
+
 (defmethod handle-event :default
   [data [_ msg]]
   (.log js/console (str ">" data))
@@ -346,9 +347,62 @@
      :component-did-mount drag-did-mount}))
 
 ;;;
+;; THREE.JS
+;;;
+(defn three-home[]
+  [:div
+  [:h1 "three.js demo"]
+  [:blockquote.p "voila ..."]
+  [:div#dc1
+    [:canvas#c1 {:height 300 :width 300}]
+    ]])
+
+(def THREE js/THREE)
+(def camera 
+  (THREE.PerspectiveCamera. 75 
+    (/ (.-innerWidth js/window)
+    (.-innerHeight js/window)) 1 10000))
+(set! (.-z (.-position camera)) 1000)
+
+(def scene (THREE.Scene.))
+(def geometry (THREE.CubeGeometry. 200 200 200))
+(def material (THREE.MeshLambertMaterial. (clj->js {"color" 0x00ff88 "wireframe" false})))
+(def mesh (THREE.Mesh. geometry material))
+
+(def light (THREE.DirectionalLight. 0xffffff))
+(.normalize (.set (.-position light) 1 1 1))
+
+(.add scene mesh)
+(.add scene light)
+
+(def renderer 
+  (THREE.WebGLRenderer. 
+    (clj->js {"canvas" (.getElementById js/document "c1")})))
+(.setSize renderer 500 300)
+
+(defn render []
+  (set! (.-x (.-rotation mesh)) (+ (.-x (.-rotation mesh)) 0.01))
+  (set! (.-y (.-rotation mesh)) (+ (.-y (.-rotation mesh)) 0.02))
+  (.render renderer scene camera))
+ 
+(defn animate []
+  (.requestAnimationFrame js/window animate)
+  (render))
+ 
+(defn three-did-mount[]
+     (animate) )
+
+(defn three-component[]
+    (reagent/create-class 
+    {:render three-home
+     :component-did-mount three-did-mount}))
+
+;;;
 ;; MAIN LOADING
 ;;;
 (defn ^:export main []
+  (when-let [root02 (.getElementById js/document "app02")]
+    (reagent/render-component [three-component] root02))
   (when-let [root01 (.getElementById js/document "app01")]
     (reagent/render-component [drag-component] root01))
   (when-let [root9 (.getElementById js/document "app9")]

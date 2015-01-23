@@ -34,6 +34,8 @@
                  [cljs-ajax "0.3.9"]
                  [org.webjars/jquery-ui "1.11.2"]
                  [org.webjars/jquery "2.1.3"]
+                 [org.webjars/three.js "r66"]
+                 
                  ]
 
   :plugins [

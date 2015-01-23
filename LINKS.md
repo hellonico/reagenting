@@ -6,6 +6,9 @@ COOKBOOK
 BINARY CLOCK
 * http://holmsand.github.io/reagent/news/binary-clock.html
 
+JAVASCRIPT
+http://wellcaffeinated.net/PhysicsJS/
+
 WEBGL
 * https://github.com/webjars/pixi.js
 
