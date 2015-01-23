@@ -354,18 +354,20 @@
   [:h1 "three.js demo"]
   [:blockquote.p "voila ..."]
   [:div#dc1
-    [:canvas#c1 {:height 300 :width 300}]
+    ; timing is off
+    ;[:canvas#c1 {:height 300 :width 300}]
     ]])
 
 (def THREE js/THREE)
 (def camera 
   (THREE.PerspectiveCamera. 75 
-    (/ (.-innerWidth js/window)
-    (.-innerHeight js/window)) 1 10000))
+    ;(/ (.-innerWidth js/window) (.-innerHeight js/window)) 
+    1
+    1 10000))
 (set! (.-z (.-position camera)) 1000)
 
 (def scene (THREE.Scene.))
-(def geometry (THREE.CubeGeometry. 200 200 200))
+(def geometry (THREE.CubeGeometry. 300 300 300))
 (def material (THREE.MeshLambertMaterial. (clj->js {"color" 0x00ff88 "wireframe" false})))
 (def mesh (THREE.Mesh. geometry material))
 
@@ -377,8 +379,8 @@
 
 (def renderer 
   (THREE.WebGLRenderer. 
-    (clj->js {"canvas" (.getElementById js/document "c1")})))
-(.setSize renderer 500 300)
+    (clj->js {"canvas" (.getElementById js/document "c0")})))
+(.setSize renderer 300 300)
 
 (defn render []
   (set! (.-x (.-rotation mesh)) (+ (.-x (.-rotation mesh)) 0.01))
