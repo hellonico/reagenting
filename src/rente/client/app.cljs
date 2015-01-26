@@ -355,19 +355,20 @@
   [:blockquote.p "voila ..."]
   [:div#dc1
     ; timing is off
+    ; we want to have a render function without parameters to solve this
+    ; and turn all the code to a single component
     ;[:canvas#c1 {:height 300 :width 300}]
     ]])
 
 (def THREE js/THREE)
 (def camera 
   (THREE.PerspectiveCamera. 75 
-    ;(/ (.-innerWidth js/window) (.-innerHeight js/window)) 
     1
     1 10000))
 (set! (.-z (.-position camera)) 1000)
 
 (def scene (THREE.Scene.))
-(def geometry (THREE.CubeGeometry. 300 300 300))
+(def geometry (THREE.CubeGeometry. 500 500 500))
 (def material (THREE.MeshLambertMaterial. (clj->js {"color" 0x00ff88 "wireframe" false})))
 (def mesh (THREE.Mesh. geometry material))
 
@@ -403,6 +404,7 @@
 ;; MAIN LOADING
 ;;;
 (defn ^:export main []
+  (comment 
   (when-let [root02 (.getElementById js/document "app02")]
     (reagent/render-component [three-component] root02))
   (when-let [root01 (.getElementById js/document "app01")]
@@ -421,9 +423,46 @@
     (reagent/render-component [shared-state] root5))
   (when-let [root4 (.getElementById js/document "app4")]
     (reagent/render-component [counting-component] root4))
-  (when-let [root3 (.getElementById js/document "app3")]
-    (reagent/render-component [timer-component2] root3))
   (when-let [root2 (.getElementById js/document "app2")]
     (reagent/render-component [some-component state] root2))
   (when-let [root (.getElementById js/document "app")]
     (reagent/render-component [app state] root)))
+  )
+
+;;;
+;; TOP BAR
+;;;
+(defrecord Sample [description component showing])
+
+(defonce mycomponents (reagent/atom 
+  {
+  "app02" (Sample. "Timer" timer-component2 false)
+  "app01" (Sample. "Drag" drag-component false)
+  "app9" (Sample. "D3" d3-component false)
+  "app0" (Sample. "Routing" routing-example false)
+  }))
+
+(defn list-component []
+      [:div
+       [:h1 "Component show case"]
+       (for [[div sample] @mycomponents]
+        [:div 
+        [:button.btn.btn-sm.btn-success
+            {:type "button"
+             :class (if (:showing sample) "active")
+             :style {:width "100px" :float "left"}
+             :on-click 
+             #(do 
+              (if (:showing sample) 
+                (reagent/unmount-component-at-node (.getElementById js/document div))
+                (reagent/render-component 
+                [(:component sample )] (.getElementById js/document div) ))
+              (swap!  mycomponents update-in [div :showing] not) )} 
+             (:description sample)]])
+        [:br]
+        [:br]
+        ])
+;
+  (when-let [root (.getElementById js/document "div_0")]
+    (reagent/render-component [list-component] root))
+

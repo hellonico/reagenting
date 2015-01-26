@@ -7,7 +7,7 @@
   :dependencies [
                  ; core
                  [org.clojure/clojure "1.7.0-alpha5"]
-                 [org.clojure/clojurescript "0.0-2665"]
+                 [org.clojure/clojurescript "0.0-2719"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [com.stuartsierra/component "0.2.2"]
                  [environ "1.0.0"]
@@ -16,6 +16,7 @@
 
                  [ring/ring-core "1.3.2"]
                  [ring/ring-defaults "0.1.3"]
+                 [ring/ring-devel "1.3.2"]
                  [compojure "1.3.1"]
                  [http-kit "2.1.19"]
                  [com.taoensso/sente "1.3.0" :exclusions [org.clojure/tools.reader]]

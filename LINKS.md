@@ -9,8 +9,10 @@ BINARY CLOCK
 JAVASCRIPT
 http://wellcaffeinated.net/PhysicsJS/
 
-WEBGL
+FUN
 * https://github.com/webjars/pixi.js
+* https://developer.leapmotion.com/getting-started/javascript 
+* https://github.com/leapmotion/leapjs
 
 THEMING
 * http://bootswatch.com/readable/
